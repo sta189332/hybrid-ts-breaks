@@ -1,0 +1,79 @@
+---
+title: 'Hybrid Time Series Forecasting under Non-Stationarity and Structural Breaks'
+subtitle: 'Reproducible Quarto-R Workflow for MPhil/PhD Seminar'
+author: 'Omokedi, Cornelius Oromena'
+date: today
+---
+
+```{r}
+#| label: setup
+#| include: false
+source('R/00_packages_setup.R')
+source('R/01_sim_arma_baseline.R')
+source('R/02_sim_random_walk_trend_unitroot.R')
+source('R/03_sim_arima_breaks.R')
+source('R/04_sim_garch_breaks.R')
+source('R/05_sim_markov_switching.R')
+source('R/06_sim_nonlinear_threshold.R')
+source('R/07_sim_vecm_cointegration_breaks.R')
+source('R/10_data_preprocessing.R')
+source('R/20_break_detection_methods.R')
+source('R/30_existing_forecasting_models.R')
+source('R/40_proposed_adaptive_hybrid_model.R')
+source('R/50_evaluation_metrics.R')
+source('R/60_real_world_data_analysis.R')
+source('R/70_tables_figures.R')
+
+set.seed(123)
+```
+
+# Introduction
+
+This document provides a reproducible research workflow for the study titled *Hybrid Time Series Forecasting under Non-Stationarity and Structural Breaks*. It integrates prose, R code, simulated datasets, model outputs, tables, figures and references in one Quarto document.
+
+# Section Four: Data Organisation and Analysis
+
+The empirical strategy combines simulated data and real-world data. Simulated data allow the true break date and data-generating process to be known, while real-world finance and economic data validate practical usefulness.
+
+## Simulation Scenarios
+
+```{r}
+#| label: tbl-simulation-scenarios
+#| tbl-cap: 'Simulation scenarios for non-stationarity and structural breaks'
+knitr::kable(simulation_table())
+```
+
+## Example: AR Mean Break
+
+```{r}
+#| label: fig-ar-mean-break
+#| fig-cap: 'Simulated autoregressive series with a known mean break'
+sim_mean <- simulate_ar_mean_break()
+plot_series_with_break(sim_mean, 'AR(1) Series with Mean Break')
+```
+
+## Example: Break Detection
+
+```{r}
+#| label: break-detection-demo
+break_results <- detect_breaks_classical(sim_mean$y)
+names(break_results)
+```
+
+## Forecasting Model Demonstration
+
+```{r}
+#| label: arima-demo
+split_mean <- time_ordered_split(sim_mean)
+fc <- fit_arima_forecast(split_mean$train$y, h = nrow(split_mean$test))
+fc
+```
+
+# Section Five: Discussion and Conclusion
+
+The discussion will interpret whether the proposed adaptive hybrid model improves forecast accuracy, reduces post-break forecast deterioration, detects structural breaks faster, and performs robustly across simulated and real-world datasets.
+
+# References
+
+The conceptual foundation of this work draws from classical and contemporary time series literature, including @hyndman2018forecasting, @perron1989great, and @bai2003computation.
+

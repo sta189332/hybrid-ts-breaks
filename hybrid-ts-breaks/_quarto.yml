@@ -1,0 +1,37 @@
+project:
+  type: default
+  output-dir: outputs/rendered
+  render:
+    - report.qmd
+
+execute:
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+
+toc: true
+number-sections: true
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      light: flatly
+    css: styles.scss
+    code-fold: true
+    code-tools: true
+    fig-width: 8
+    fig-height: 5
+    df-print: paged
+  docx:
+    toc: true
+    number-sections: true
+  pdf:
+    documentclass: report
+    papersize: a4
+    geometry:
+      - margin=1in
+    fig-width: 7
+    fig-height: 5
+
