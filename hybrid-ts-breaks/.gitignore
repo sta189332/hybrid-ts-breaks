@@ -107,3 +107,8 @@ knitr-cache/
 Thumbs.db
 desktop.ini
 .quarto
+# Local R session files
+# Keep raw or restricted data out of GitHub
+# Rendered outputs can be regenerated
+outputs/rendered/*
+# Local logs and temporary files
